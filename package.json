@@ -1,0 +1,32 @@
+{
+  "name": "dartsee-assignment",
+  "version": "1.0.0",
+  "description": "Dartsee Full-Stack Developer application",
+  "license": "ISC",
+  "author": "Levente Nagy",
+  "type": "commonjs",
+  "workspaces": [
+    "packages/backend",
+    "packages/frontend"
+  ],
+  "scripts": {
+    "lint": "eslint \"packages/**/*.{ts,tsx,js,mjs}\"",
+    "start:frontend": "cd packages/frontend && npm run dev",
+    "start:backend": "cd packages/backend && npm run start:dev",
+    "start": "concurrently -c \"blue,green\" -n \"frontend,backend\" \"npm run start:frontend\" \"npm run start:backend\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^16.5.0",
+    "typescript-eslint": "^8.57.1"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
