@@ -1,11 +1,15 @@
 import './App.css';
-import { queryClient } from './utils/query.utils';
+
 import { QueryClientProvider } from '@tanstack/react-query';
+
+import { Home } from '@/components/HomeComponent.tsx';
+
+import { queryClient } from './utils/query.utils';
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <h1>Hello World</h1>
+      <Home />
     </QueryClientProvider>
   );
 }
