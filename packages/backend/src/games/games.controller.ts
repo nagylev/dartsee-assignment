@@ -2,6 +2,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiQuery, ApiResponse } from '@nestjs/swagger';
 import {
   GameDetailsDto,
+  GamePlayedDto,
   GameSummaryDto,
   GameTypePopularityDto,
   GameTypesDto,
@@ -26,7 +27,7 @@ export class GamesController {
     return { types: types, totalTypesCount: types.length };
   }
 
-  @Get('games-popularity')
+  @Get('popularity')
   @ApiResponse({
     status: 200,
     description: 'The popularity of game types',
@@ -35,6 +36,17 @@ export class GamesController {
   async getGameTypeStats(): Promise<GameTypePopularityDto> {
     const gameWithCount = await this.gamesService.getGamePopularityStats();
     return { gameWithCount, totalCount: gameWithCount.length };
+  }
+
+  @Get('total-number')
+  @ApiResponse({
+    status: 200,
+    description: 'The popularity of game types',
+    type: GamePlayedDto,
+  })
+  async getGamePlayedCount(): Promise<GamePlayedDto> {
+    const gamePlayedCount = await this.gamesService.getGamePlayedCount();
+    return { totalGamesPlayedCount: gamePlayedCount };
   }
 
   @Get('summary')

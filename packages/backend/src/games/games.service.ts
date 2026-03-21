@@ -64,6 +64,13 @@ export class GamesService {
     return types.filter((type) => type !== null);
   }
 
+  async getGamePlayedCount(): Promise<number> {
+    const games = await this.prisma.games.findMany({
+      where: { type: { not: null } },
+    });
+    return games.length;
+  }
+
   private async getGames(
     page: number = 1,
     pageSize: number = 10,

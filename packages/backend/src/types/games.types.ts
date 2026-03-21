@@ -37,6 +37,15 @@ export class GameTypePopularityDto {
   totalCount: number;
 }
 
+export class GamePlayedDto {
+  @ApiProperty({
+    type: Number,
+    description: 'The total number of games played',
+    example: 44,
+  })
+  totalGamesPlayedCount: number;
+}
+
 export class GameSummaryDto {
   @ApiProperty({ type: Number, description: 'The game id', example: 1 })
   gameId: number;
