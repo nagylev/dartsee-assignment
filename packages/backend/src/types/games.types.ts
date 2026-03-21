@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { PlayerDto } from './player.types';
+
 export class GameTypesDto {
   @ApiProperty({
     type: [String],
@@ -33,6 +35,31 @@ export class GameTypePopularityDto {
     example: 1,
   })
   totalCount: number;
+}
+
+export class GameSummaryDto {
+  @ApiProperty({ type: Number, description: 'The game id', example: 1 })
+  gameId: number;
+
+  @ApiProperty({
+    type: String,
+    description: 'The game type',
+    example: 'shanghai',
+    nullable: true,
+  })
+  gameType: string | null;
+  @ApiProperty({
+    type: Number,
+    description: 'The number of players who played this game',
+    example: 1,
+  })
+  playerCount: number;
+
+  @ApiProperty({
+    type: [PlayerDto],
+    description: 'The players who played this game',
+  })
+  players: PlayerDto[];
 }
 
 export type GameTypeCountGroupRow = {

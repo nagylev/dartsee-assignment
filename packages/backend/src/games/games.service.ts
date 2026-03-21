@@ -1,11 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { GameTypePlayCount } from 'src/types/games.types';
-import { mapGameTypePlayCount } from 'src/utils/games.utils';
+import { GameSummaryDto, GameTypePlayCount } from 'src/types/games.types';
+import {
+  mapGameTypePlayCount,
+  mapToGameSummaryDto,
+} from 'src/utils/games.utils';
+
+import { games } from '../../generated/prisma/client';
+import { PlayersService } from '../players/players.service';
 
 @Injectable()
 export class GamesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly playersService: PlayersService,
+  ) {}
+
+  async getGamesSummary(
+    page: number = 1,
+    pageSize: number = 10,
+  ): Promise<GameSummaryDto[]> {
+    const games = await this.getGames(page, pageSize);
+    const playerPromises = games.map(async (game): Promise<GameSummaryDto> => {
+      const players = await this.playersService.getGamePlayers(game.id);
+      return mapToGameSummaryDto(game, players);
+    });
+    return await Promise.all(playerPromises);
+  }
 
   async getGamePopularityStats(): Promise<GameTypePlayCount[]> {
     const rows = await this.prisma.games.groupBy({
@@ -24,5 +45,16 @@ export class GamesService {
     const types = rows.map((row) => row.type);
 
     return types.filter((type) => type !== null);
+  }
+
+  private async getGames(
+    page: number = 1,
+    pageSize: number = 10,
+  ): Promise<games[]> {
+    const skip = (page - 1) * pageSize;
+    return this.prisma.games.findMany({
+      skip: Number.isNaN(skip) ? 0 : skip,
+      take: pageSize,
+    });
   }
 }
