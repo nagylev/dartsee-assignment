@@ -32,7 +32,7 @@ const sharedRules = {
 
 export default tseslint.config(
   {
-    ignores: ['**/node_modules/**', '**/dist/**'],
+    ignores: ['**/node_modules/**', '**/dist/**', '**/generated-api/**'],
   },
   eslint.configs.recommended,
   eslintPluginPrettierRecommended,
@@ -56,7 +56,7 @@ export default tseslint.config(
     rules: sharedRules,
   },
   {
-    files: ['packages/frontend/dartsee-frontend/**/*.{ts,tsx}'],
+    files: ['packages/frontend/**/*.{ts,tsx}'],
     extends: [
       ...tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
