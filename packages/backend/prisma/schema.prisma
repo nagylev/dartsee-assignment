@@ -1,0 +1,35 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model game_players {
+  game_id   Int
+  player_id String?
+  id        String  @id
+}
+
+model games {
+  id   Int     @id
+  type String?
+}
+
+model players {
+  id   String  @id
+  name String?
+}
+
+model throws {
+  id        Int     @id
+  game_id   Int?
+  player_id String?
+  score     Int?
+  modifier  Int?
+  x         Int?
+  y         Int?
+}
