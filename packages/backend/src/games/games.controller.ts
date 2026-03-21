@@ -1,11 +1,13 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiQuery, ApiResponse } from '@nestjs/swagger';
 import {
+  GameDetailsDto,
   GameSummaryDto,
   GameTypePopularityDto,
   GameTypesDto,
 } from 'src/types/games.types';
-import { ApiPageResponse } from 'src/types/response.types';
+import { ApiCallResponse, ApiPageResponse } from 'src/types/response.types';
+import { wrapInResponseDto } from 'src/utils/response.utils';
 
 import { GamesService } from './games.service';
 
@@ -55,5 +57,14 @@ export class GamesController {
       page: pageNumber ?? 1,
       pageSize: pageSizeNumber ?? 10,
     };
+  }
+
+  @Get('details/:gameId')
+  @ApiCallResponse(GameDetailsDto, 'The details of a game')
+  async getGameDetails(@Param('gameId') gameId: string) {
+    return wrapInResponseDto<GameDetailsDto>(async () => {
+      const gameIdNumber = Number(gameId);
+      return await this.gamesService.getGameDetails(gameIdNumber);
+    });
   }
 }

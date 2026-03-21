@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ThrowsService } from 'src/throws/throws.service';
 import { GameSummaryDto, GameTypePlayCount } from 'src/types/games.types';
 import {
   mapGameTypePlayCount,
+  mapThrowsToGameDetailsDto,
   mapToGameSummaryDto,
 } from 'src/utils/games.utils';
 
@@ -14,7 +16,22 @@ export class GamesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly playersService: PlayersService,
+    private readonly throwsService: ThrowsService,
   ) {}
+
+  async getGameDetails(gameId: number) {
+    const game = await this.prisma.games.findUnique({
+      where: { id: gameId },
+    });
+    if (!game) {
+      throw new Error('Game not found');
+    }
+    const [players, throws] = await Promise.all([
+      this.playersService.getGamePlayers(gameId),
+      this.throwsService.getThrows(gameId),
+    ]);
+    return mapThrowsToGameDetailsDto(game, throws, players);
+  }
 
   async getGamesSummary(
     page: number = 1,
