@@ -7,11 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-api": "npx openapi-generator-cli generate -i ./../../swagger.json -g typescript-axios -o ./generated-api"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
+    "@openapitools/openapi-generator-cli": "^2.30.2",
     "@tailwindcss/vite": "^4.2.2",
+    "axios": "^1.13.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
