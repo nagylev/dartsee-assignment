@@ -50,7 +50,11 @@ export const ApiCallResponse = <TModel extends Type<unknown>>(
   );
 
 export class PageResponseDto<T> {
-  @ApiProperty({ isArray: true, description: 'The data' })
+  @ApiProperty({
+    description: 'The data',
+    type: 'array',
+    items: { type: 'object', additionalProperties: true },
+  })
   data: T[];
   @ApiProperty({ type: Number, description: 'The total number of items' })
   total: number;
