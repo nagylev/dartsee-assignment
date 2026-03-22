@@ -2,12 +2,18 @@ import { apiClient } from '@/api-client.ts';
 
 import type {
   GamePlayedDto,
+  GameTypePopularityDto,
   GameTypesDto,
   PageResponseDto,
 } from '../../generated-api';
 
 export async function getGameTypes(): Promise<GameTypesDto> {
   const response = await apiClient.gamesControllerGetGameTypes();
+  return response.data;
+}
+
+export async function getGamesPopularity(): Promise<GameTypePopularityDto> {
+  const response = await apiClient.gamesControllerGetGameTypeStats();
   return response.data;
 }
 
