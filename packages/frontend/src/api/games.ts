@@ -1,6 +1,10 @@
 import { apiClient } from '@/api-client.ts';
 
-import type { GamePlayedDto, GameTypesDto } from '../../generated-api';
+import type {
+  GamePlayedDto,
+  GameTypesDto,
+  PageResponseDto,
+} from '../../generated-api';
 
 export async function getGameTypes(): Promise<GameTypesDto> {
   const response = await apiClient.gamesControllerGetGameTypes();
@@ -9,5 +13,16 @@ export async function getGameTypes(): Promise<GameTypesDto> {
 
 export async function getAllPlayedGamesCount(): Promise<GamePlayedDto> {
   const response = await apiClient.gamesControllerGetGamePlayedCount();
+  return response.data;
+}
+
+export async function getGameSummary(
+  page?: number,
+  perPage?: number,
+): Promise<PageResponseDto> {
+  const response = await apiClient.gamesControllerGetGamesSummary(
+    page,
+    perPage,
+  );
   return response.data;
 }

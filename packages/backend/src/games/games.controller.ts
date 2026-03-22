@@ -53,19 +53,19 @@ export class GamesController {
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'pageSize', required: false, type: Number })
   @ApiPageResponse(GameSummaryDto, 'The games summary')
-  async getGames(
+  async getGamesSummary(
     @Query('page') page: string,
     @Query('pageSize') pageSize: string,
   ) {
-    const pageNumber = Number(page);
-    const pageSizeNumber = Number(pageSize);
-    const games = await this.gamesService.getGamesSummary(
-      pageNumber,
-      pageSizeNumber,
-    );
+    const pageNumber = Number(page ?? 1);
+    const pageSizeNumber = Number(pageSize ?? 10);
+    const [games, gamePlayedCount] = await Promise.all([
+      this.gamesService.getGamesSummary(pageNumber, pageSizeNumber),
+      this.gamesService.getGamePlayedCount(),
+    ]);
     return {
       data: games,
-      total: games.length,
+      pageCount: Math.ceil(gamePlayedCount / (pageSizeNumber ?? 10)),
       page: pageNumber ?? 1,
       pageSize: pageSizeNumber ?? 10,
     };

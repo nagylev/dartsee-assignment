@@ -56,8 +56,8 @@ export class PageResponseDto<T> {
     items: { type: 'object', additionalProperties: true },
   })
   data: T[];
-  @ApiProperty({ type: Number, description: 'The total number of items' })
-  total: number;
+  @ApiProperty({ type: Number, description: 'The total number of pages' })
+  pageCount: number;
   @ApiProperty({ type: Number, description: 'The page number' })
   page: number;
   @ApiProperty({ type: Number, description: 'The page size' })

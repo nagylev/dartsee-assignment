@@ -1,9 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { GamesListComponent } from '@/components/GamesListComponent.tsx';
+import { useGetGamesSummary } from '@/hooks/useGetGamesSummary.ts';
+
 const gamesListSchema = z.object({
   page: z.number().default(1),
-  limit: z.number().default(10),
+  perPage: z.number().default(5),
 });
 
 export const Route = createFileRoute('/games/list')({
@@ -12,8 +15,18 @@ export const Route = createFileRoute('/games/list')({
 });
 
 function RouteComponent() {
-  const { page, limit } = Route.useSearch();
-  console.log(page, limit);
-
-  return <div>Hello "/games/list"!</div>;
+  const { page, perPage } = Route.useSearch();
+  console.log('page', page, 'perPage', perPage);
+  const gamesSummary = useGetGamesSummary(page, perPage);
+  if (gamesSummary.isLoading || !gamesSummary.data) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <GamesListComponent
+      page={gamesSummary.data.page}
+      perPage={gamesSummary.data.pageSize}
+      pageCount={gamesSummary.data.pageCount}
+      gamesSummary={gamesSummary.data.data}
+    />
+  );
 }
