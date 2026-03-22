@@ -6,7 +6,7 @@ export interface StatTileProps {
 
 export function StatTile({ label, value, Icon }: StatTileProps) {
   return (
-    <div className="rounded-xl border p-4">
+    <div className="flex flex-col rounded-xl border p-4 items-center">
       <Icon className="w-6 h-6  mx-auto mb-1" />
       <span className="text-2xl font-black text-card-foreground block">
         {value}

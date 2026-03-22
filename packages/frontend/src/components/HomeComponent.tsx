@@ -1,5 +1,6 @@
 import { Target, Trophy, Users } from 'lucide-react';
 
+import { HomePageNavigate } from '@/components/widgets/HomePageNavigate.tsx';
 import { StatTile } from '@/components/widgets/StatTile.tsx';
 import { useGetDartseeStats } from '@/hooks/useGetDartseeStats.ts';
 
@@ -11,8 +12,8 @@ export function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-      <div className="mb-10">
+    <div className="min-h-screen flex flex-col justify-center ">
+      <div className="mb-10 text-center">
         <h1 className="text-7xl font-bold mb-3">Dartsee</h1>
         <p className="text-muted-foreground text-lg">Tracking your games!</p>
       </div>
@@ -25,6 +26,10 @@ export function Home() {
         ].map(({ icon: Icon, label, value }) => (
           <StatTile key={label} Icon={Icon} label={label} value={value} />
         ))}
+      </div>
+      <div className="flex flex-row gap-4 justify-center">
+        <HomePageNavigate to="/games/list" text="Games Played" />
+        <HomePageNavigate to="/popularity-statistics" text="Statistics" />
       </div>
     </div>
   );
