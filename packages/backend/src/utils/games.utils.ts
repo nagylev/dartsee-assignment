@@ -82,7 +82,7 @@ function mapThrowsToRoundDto(throws: throws[]): RoundDto[] {
   for (const row of throws) {
     const playerId = row.player_id;
     const last = rounds.length > 0 ? rounds[rounds.length - 1] : undefined;
-    if (last?.playerId === playerId) {
+    if (last?.playerId === playerId && last.throws.length < 3) {
       last.throws.push(mapThrowRowToDto(row, last.throws.length + 1));
     } else {
       rounds.push({
