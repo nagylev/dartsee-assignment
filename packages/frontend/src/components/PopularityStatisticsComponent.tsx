@@ -1,7 +1,7 @@
 import type { GameTypePlayCountDto } from 'generated-api/api';
 
-import { GamesHeader } from '@/components/widgets/GamesHeader.tsx';
 import { GamesPieChart } from '@/components/widgets/GamesPieChart.tsx';
+import { PageWidget } from '@/components/widgets/PageWidget.tsx';
 
 interface PopularityStatisticsComponentProps {
   types: GameTypePlayCountDto[];
@@ -13,16 +13,11 @@ export function PopularityStatisticsComponent({
   totalCount,
 }: PopularityStatisticsComponentProps) {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center px-4">
-      <div className="w-2/3 min-w-0 max-w-full">
-        <GamesHeader
-          title={'POPULARITY STATISTICS'}
-          subtitle={
-            'Different game types popularity based on the number of games played.'
-          }
-        />
-        <GamesPieChart types={types} totalCount={totalCount} />
-      </div>
-    </div>
+    <PageWidget
+      title="POPULARITY STATISTICS"
+      subtitle="Different game types popularity based on the number of games played."
+    >
+      <GamesPieChart types={types} totalCount={totalCount} />
+    </PageWidget>
   );
 }
