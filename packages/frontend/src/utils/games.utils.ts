@@ -34,6 +34,13 @@ export function calculatePlayerRoundValues(
   };
 }
 
+export function getThrowsFromRounds(rounds: RoundDto[]): ThrowDto[] {
+  return rounds.reduce<ThrowDto[]>(
+    (acc, round) => [...acc, ...round.throws],
+    [] as ThrowDto[],
+  );
+}
+
 function getMissesCountInRound(round: RoundDto): number {
   return round.throws.filter((t) => t.modifier === 0).length;
 }

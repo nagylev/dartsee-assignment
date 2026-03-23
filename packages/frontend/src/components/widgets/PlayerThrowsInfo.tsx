@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion.tsx';
 import { RoundWidget } from '@/components/widgets/RoundWidget.tsx';
+import { ThrowMapDialog } from '@/components/widgets/ThrowMapDialog.tsx';
 import { calculatePlayerRoundValues } from '@/utils/games.utils';
 
 import type { PlayerRoundDto } from '../../../generated-api';
@@ -41,6 +42,12 @@ export function PlayerThrowsInfo({ playerRound }: UserThrowsProps) {
         </AccordionTrigger>
         <AccordionContent>
           <div className="flex flex-col gap-0.5 pt-2 border-t">
+            <div>
+              <ThrowMapDialog
+                rounds={playerRound.rounds}
+                playerName={playerRound.player.name}
+              />
+            </div>
             {playerRound.rounds.map((round) => (
               <RoundWidget round={round} />
             ))}
