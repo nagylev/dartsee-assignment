@@ -2,6 +2,7 @@ import { apiClient } from '@/api-client.ts';
 
 import type {
   GamePlayedDto,
+  GamesControllerGetGameDetails200Response,
   GameTypePopularityDto,
   GameTypesDto,
   PageResponseDto,
@@ -30,5 +31,12 @@ export async function getGameSummary(
     page,
     perPage,
   );
+  return response.data;
+}
+
+export async function getGameDetails(
+  gameId: string,
+): Promise<GamesControllerGetGameDetails200Response> {
+  const response = await apiClient.gamesControllerGetGameDetails(gameId);
   return response.data;
 }

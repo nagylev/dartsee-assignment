@@ -1,7 +1,7 @@
-import { getGameSummary } from '@/api/games.ts';
-import type { PageResponse } from '@/types/response.types.ts';
+import { getGameDetails, getGameSummary } from '@/api/games.ts';
+import type { PageResponse, Response } from '@/types/response.types.ts';
 
-import type { GameSummaryDto } from '../../generated-api';
+import type { GameDetailsDto, GameSummaryDto } from '../../generated-api';
 
 export async function getGamesSummary(
   page?: number,
@@ -11,5 +11,15 @@ export async function getGamesSummary(
   return {
     ...response,
     data: response.data as GameSummaryDto[],
+  };
+}
+
+export async function getGamesDetails(
+  gameId: string,
+): Promise<Response<GameDetailsDto>> {
+  const response = await getGameDetails(gameId);
+  return {
+    ...response,
+    data: response.data as GameDetailsDto,
   };
 }
