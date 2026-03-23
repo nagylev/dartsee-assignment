@@ -14,8 +14,8 @@ export function mapToPieChartData(
         label: 'Number of games played',
         data: types.map((type) => type.count),
         backgroundColor: colors,
-        borderColor: colors,
-        borderWidth: 1,
+        borderColor: ['rgb(255, 255, 255)'],
+        borderWidth: 4,
       },
     ],
   };
