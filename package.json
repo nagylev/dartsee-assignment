@@ -11,6 +11,8 @@
   ],
   "scripts": {
     "lint": "eslint \"packages/**/*.{ts,tsx,js,mjs}\"",
+    "generate": "npm run generate --workspace=dartsee-backend && npm run generate-api --workspace=dartsee-frontend",
+    "prestart": "npm run generate",
     "start:frontend": "cd packages/frontend && npm run dev",
     "start:backend": "cd packages/backend && npm run start:dev",
     "start": "concurrently -c \"blue,green\" -n \"frontend,backend\" \"npm run start:frontend\" \"npm run start:backend\""
