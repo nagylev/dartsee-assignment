@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { GamesDetailsComponent } from '@/components/GamesDetailsComponent.tsx';
+import { LoadingWidget } from '@/components/widgets/LoadingWidget.tsx';
 import { useGetGameDetails } from '@/hooks/useGetGameDetails.ts';
 
 export const Route = createFileRoute('/games/details/$gameId')({
@@ -13,7 +14,7 @@ function RouteComponent() {
   const gameDetails = useGetGameDetails(gameId as string);
 
   if (gameDetails.isLoading || !gameDetails.data) {
-    return <div>Loading...</div>;
+    return <LoadingWidget />;
   }
 
   return (

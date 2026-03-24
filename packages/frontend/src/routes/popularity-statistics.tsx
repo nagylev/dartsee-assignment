@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { PopularityStatisticsComponent } from '@/components/PopularityStatisticsComponent.tsx';
+import { LoadingWidget } from '@/components/widgets/LoadingWidget.tsx';
 import { useGetGamesPopularity } from '@/hooks/useGetGamesPopularity.ts';
 
 export const Route = createFileRoute('/popularity-statistics')({
@@ -10,7 +11,7 @@ export const Route = createFileRoute('/popularity-statistics')({
 function RouteComponent() {
   const statistics = useGetGamesPopularity();
   if (statistics.isLoading || !statistics.data) {
-    return <div>Loading...</div>;
+    return <LoadingWidget />;
   }
   return (
     <PopularityStatisticsComponent

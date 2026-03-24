@@ -2,7 +2,7 @@ import type { GameSummaryDto } from 'generated-api';
 
 import { GameListItem } from '@/components/widgets/GameListItem.tsx';
 import { GamesListPagination } from '@/components/widgets/GamesListPagination.tsx';
-import { PageWidget } from '@/components/widgets/PageWidget.tsx';
+import { PageWithTitleWidget } from '@/components/widgets/PageWithTitleWidget.tsx';
 
 interface GamesListComponentProps {
   page: number;
@@ -18,7 +18,10 @@ export function GamesListComponent({
   gamesSummary,
 }: GamesListComponentProps) {
   return (
-    <PageWidget title="ALL GAMES" subtitle="Scroll through all games played">
+    <PageWithTitleWidget
+      title="ALL GAMES"
+      subtitle="Scroll through all games played"
+    >
       <div className="grid w-full grid-cols-1 gap-4">
         {gamesSummary.map((game) => (
           <GameListItem key={game.gameId} game={game} />
@@ -32,6 +35,6 @@ export function GamesListComponent({
           perPage={perPage}
         />
       </div>
-    </PageWidget>
+    </PageWithTitleWidget>
   );
 }
